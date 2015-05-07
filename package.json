@@ -16,7 +16,8 @@
     "method-override": "~1.0.0",
     "morgan": "~1.0.0",
     "serve-favicon": "~2.0.1",
-    "stormpath-sdk-express": "^0.4.3"
+    "stormpath-sdk-express": "^0.4.3",
+    "stormpath": "~0.9.3"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
