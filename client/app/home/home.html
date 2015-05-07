@@ -1,0 +1,121 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container margin">
+
+  <div class="border row well">
+    <div class="col-md-6">
+      <p>Question</p>
+    </div>
+    <div class="col-md-6">
+      <select class="border pull-right form-control" ng-model="questionSelected"
+              ng-options="item as item for item in listOfQuestions" ng-change="selectQuestion()">
+        <option value="">Select Question</option>
+      </select>
+    </div>
+  </div>
+  <div class="border row well">
+    <div class="col-md-6">
+      <p>Division</p>
+    </div>
+    <div class="col-md-6">
+      <select class="border pull-right form-control" name="first" ng-model="divisionSelected"
+              ng-options="item as item for item in divisions" ng-change="selectDivision()">
+        <option value="">Select Division</option>
+      </select>
+    </div>
+  </div>
+  <div class="chart_container row">
+    <div class="border pull-left col-md-6">
+      <div class="row" style="min-height:20px;">
+                <span style="cursor:pointer;" ng-if="filterSentiment" class="label label-success"
+                      ng-click="clearSentimentFilter()">{{filterSentiment}} <i
+                    class="glyphicon glyphicon-remove-circle"></i></span>
+
+        <div class="btn-group pull-right" ng-if="showExportButtons">
+          <button type="button" class="btn btn-primary dropdown-toggle"
+                  data-toggle="dropdown">
+            Export As <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-click="exportPieChartAsImage('png')"><a href="#">PNG</a></li>
+            <li ng-click="exportPieChartAsImage('jpeg')"><a href="#">JPEG</a></li>
+            <li ng-click="exportPieChartAsImage('gif')"><a href="#">GIF</a></li>
+            <li ng-click="exportPieChartAsImage('bmp')"><a href="#">BMP</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div id="chart" style="clear:both;" class="row span4 chart chart-doughnut">
+        <nvd3 options="options" data="data"></nvd3>
+      </div>
+    </div>
+    <div class="border col-md-6 pull-right">
+      <div class="row" style="min-height:20px;">
+                <span style="cursor:pointer;" ng-if="filterQuestion" class="label label-success"
+                      ng-click="clearQuestionFilter()">{{filterQuestion}} <i
+                    class="glyphicon glyphicon-remove-circle"></i></span>
+
+        <div class="btn-group pull-right" ng-if="showExportButtons">
+          <button type="button" class="btn btn-primary dropdown-toggle"
+                  data-toggle="dropdown">
+            Export As <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-click="exportWordCloudAsImage('png')"><a href="#">PNG</a></li>
+            <li ng-click="exportWordCloudAsImage('jpeg')"><a href="#">JPEG</a></li>
+            <li ng-click="exportWordCloudAsImage('gif')"><a href="#">GIF</a></li>
+            <li ng-click="exportWordCloudAsImage('bmp')"><a href="#">BMP</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div id="wordCloud" class="chart_right_text">
+        <p>
+          <jqcloud words="word" height="367" colors="{{colors}}" delay="10" steps="7" autoResize="true"
+                   font-size="{from:0.10, to:0.04}"></jqcloud>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row well" style="height: 100px;border: 2px solid #000000">
+    <b> Search </b>:
+    <input type="text" ng-model="Search" class="form-control"/>
+  </div>
+  <div class="post_wrapper border row well" class="table">
+    <div class="col-md-12">
+      <div class="post">
+        <div class="row">
+          <table ng-table="responseTableParams" class="table table-striped">
+            <thead></thead>
+            <tbody>
+            <tr ng-repeat="res in $data | filter:Search track by $index">
+              <td>
+                <div class="row">
+                  <div class="col-md-8 pull-left">
+                    <h3>
+                      <a href="#"></a>
+                    </h3>
+                  </div>
+                  <div class="col-md-4 pull-right">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>
+                      {{res}}
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+            <tfoot></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.container-fluid -->
+<div id="loading">
+  <img src="images/loading.gif" class="ajax-loader"/>
+</div>
