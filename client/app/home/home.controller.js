@@ -7,22 +7,22 @@
   angular.module('Angular-visuliztion-module').controller('HomeCtrl', function ($scope, $http, ngTableParams, $timeout, searchService, _, CONFIG, $user) {
 
     $scope.showExportButtons = false;
+    $scope.isViewer = false;
 
-    $user.get()
-        .then(function (user) {
-          $http.get('/api/user/directory?href=' + user.directory.href).success(function (directory) {
-            sessionStorage.setItem(
-                'collectionId',
-                directory.customData.collectionId
-            );
+    for(var i = 0; i < $user.currentUser.groups.length; i++) {
+      if($user.currentUser.groups[i].name == 'Viewer') {
+        $http.get('/api/user/directory?href=' + $user.currentUser.directory.href).success(function (directory) {
+          sessionStorage.setItem(
+              'collectionId',
+              directory.customData.collectionId
+          );
 
-            init();
-          });
-
-        })
-        .catch(function (error) {
-          console.log('Error getting user', error);
+          init();
         });
+        $scope.isViewer = true;
+        break;
+      }
+    }
 
     function init() {
       initializeQuestions();
@@ -235,11 +235,14 @@
       //  console.log(error);
       //});
 
-      var myDiv = $('#chart');
-      var blob = new Blob([(new XMLSerializer).serializeToString(myDiv[0])],
-          {type: "image/png;charset=" + document.characterSet});
+      //var myDiv = $('#chart');
+      //var blob = new Blob([(new XMLSerializer).serializeToString(myDiv[0])],
+      //    {type: "image/png;charset=" + document.characterSet});
+      //
+      //saveAs(blob, "chart.png");
 
-      saveAs(blob, "chart.png");
+      var s = Snap('#chart');
+      downloadSVG(s.toString(), 'demo.svg');
     };
 
     $scope.exportWordCloudAsImage = function (type) {
@@ -250,6 +253,22 @@
       });
     };
 
-    //init();
+    function downloadSVG(content, fileName)
+    {
+      var svgURL = blobURL(content, 'image/svg+xml');
+      var newElem = document.createElement('a');
+      newElem.href = svgURL;
+      newElem.setAttribute('download', fileName);
+      document.body.appendChild(newElem);
+      newElem.click();
+      document.body.removeChild(newElem);
+    }
+
+    function blobURL(content, contentType)
+    {
+      var blob = new Blob([content], {type: contentType});
+      return (window.URL || window.webkitURL).createObjectURL(blob);
+    }
+
   });
 }());
