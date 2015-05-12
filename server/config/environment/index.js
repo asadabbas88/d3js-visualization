@@ -26,7 +26,7 @@ var all = {
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: 'Angular-visuliztion-module-secret'
+    session: 'Angular-visualization-module-secret'
   },
 
   // List of user roles

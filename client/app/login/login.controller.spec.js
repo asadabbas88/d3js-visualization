@@ -3,7 +3,7 @@
 describe('Controller: LoginCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('Angular-visuliztion-module'));
+  beforeEach(module('Angular-visualization-module'));
 
   var LoginCtrl, scope;
 

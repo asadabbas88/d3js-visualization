@@ -5,7 +5,7 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/Angular-visuliztion-module'
+    uri: 'mongodb://localhost/Angular-visualization-module'
   },
 
   seedDB: true

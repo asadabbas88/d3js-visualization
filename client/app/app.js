@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Angular-visuliztion-module', [
+angular.module('Angular-visualization-module', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

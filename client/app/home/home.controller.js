@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  angular.module('Angular-visuliztion-module').controller('HomeCtrl', function ($scope, $http, ngTableParams, $timeout, searchService, _, CONFIG, $user) {
+  angular.module('Angular-visualization-module').controller('HomeCtrl', function ($scope, $http, ngTableParams, $timeout, searchService, _, CONFIG, $user) {
 
     $scope.showExportButtons = false;
     $scope.isViewer = false;
@@ -76,6 +76,20 @@
             setWordCloudAndPieChart(response);
             $scope.responseTableParams.page(1);
             $scope.responseTableParams.reload();
+
+            console.log(response);
+
+            //$scope.dtOptions = DTOptionsBuilder.fromSource('api/datatables.json');
+            //$scope.dtColumns = [
+            //  DTColumnBuilder.newColumn('Name').withTitle('Name'),
+            //  DTColumnBuilder.newColumn('Position').withTitle('Position'),
+            //  DTColumnBuilder.newColumn('Office').withTitle('Office'),
+            //  DTColumnBuilder.newColumn('Age').withTitle('Age'),
+            //  DTColumnBuilder.newColumn('Start_date').withTitle('Start_date'),
+            //  DTColumnBuilder.newColumn('Salary').withTitle('Salary')
+            //];
+
+
             $scope.showExportButtons = true;
           })
           .error(function (err) {
