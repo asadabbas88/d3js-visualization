@@ -7,22 +7,22 @@
   angular.module('Angular-visuliztion-module').controller('HomeCtrl', function ($scope, $http, ngTableParams, $timeout, searchService, _, CONFIG, $user) {
 
     $scope.showExportButtons = false;
+    $scope.isViewer = false;
 
-    $user.get()
-        .then(function (user) {
-          $http.get('/api/user/directory?href=' + user.directory.href).success(function (directory) {
-            sessionStorage.setItem(
-                'collectionId',
-                directory.customData.collectionId
-            );
+    for(var i = 0; i < $user.currentUser.groups.length; i++) {
+      if($user.currentUser.groups[i].name == 'Viewer') {
+        $http.get('/api/user/directory?href=' + $user.currentUser.directory.href).success(function (directory) {
+          sessionStorage.setItem(
+              'collectionId',
+              directory.customData.collectionId
+          );
 
-            init();
-          });
-
-        })
-        .catch(function (error) {
-          console.log('Error getting user', error);
+          init();
         });
+        $scope.isViewer = true;
+        break;
+      }
+    }
 
     function init() {
       initializeQuestions();
@@ -140,7 +140,7 @@
         chart: {
 
           type: 'pieChart',
-          height: 500,
+          height: 387,
           x: function (d) {
             return d.key;
           },
@@ -153,10 +153,10 @@
           labelThreshold: 0.01,
           legend: {
             margin: {
-              top: 50,
-              right: 35,
-              bottom: 50,
-              left: 50
+              top: 0,
+              right: -150,
+              bottom: 0,
+              left: 0
             }
           },
           pie: {
@@ -193,63 +193,22 @@
 
     $scope.exportPieChartAsImage = function (type) {
 
-      //var nodesToRecover = [];
-      //var nodesToRemove = [];
-      //
-      //console.log($('#chart'));
-      //
-      //var targetElement = $('#chart').clone(true, true);
-      //
-      //console.log(targetElement);
-      //var svgElem = targetElement.find('svg');
-      //
-      //console.log(svgElem);
-      //
-      //svgElem.each(function(index, node) {
-      //  var parentNode = node.parentNode;
-      //  var svg = parentNode.innerHTML;
-      //
-      //  var canvas = document.createElement('canvas');
-      //
-      //  canvg(canvas, svg);
-      //
-      //  nodesToRecover.push({
-      //    parent: parentNode,
-      //    child: node
-      //  });
-      //  parentNode.removeChild(node);
-      //
-      //  nodesToRemove.push({
-      //    parent: parentNode,
-      //    child: canvas
-      //  });
-      //
-      //  parentNode.appendChild(canvas);
-      //});
-      //
-      //
-      //html2canvas(targetElement).then(function (canvas) {
-      //  document.body.appendChild(canvas);
-      //  //Canvas2Image.saveAsJPEG(canvas, 300, 300);
-      //}, function (error) {
-      //  console.log(error);
-      //});
+      $('#chart').find('svg').height('100%').width('100%');
 
       var myDiv = $('#chart');
       var blob = new Blob([(new XMLSerializer).serializeToString(myDiv[0])],
           {type: "image/png;charset=" + document.characterSet});
 
-      saveAs(blob, "chart.png");
+      saveAs(blob, "chart." + type);
     };
 
     $scope.exportWordCloudAsImage = function (type) {
       html2canvas($('#wordCloud')).then(function (canvas) {
-        Canvas2Image.saveAsImage(canvas, 500, 500, type);
+        Canvas2Image.saveAsImage(canvas, 500, 400, type);
       }, function (error) {
         console.log(error);
       });
     };
 
-    //init();
   });
 }());

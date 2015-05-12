@@ -56,10 +56,7 @@ body {
 .border.form-control {
     /*width: 70%;*/
 }
-svg{
-    height: 450px;
-    margin-top: -113px;
-}
+
 .nv-legendWrap{
     display: none;
 }

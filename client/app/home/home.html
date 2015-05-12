@@ -1,6 +1,6 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container margin">
+<div ng-show="isViewer" class="container margin">
 
   <div class="border row well">
     <div class="col-md-6">
@@ -37,10 +37,8 @@
             Export As <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
+            <li ng-click="exportPieChartAsImage('svg')"><a href="#">SVG</a></li>
             <li ng-click="exportPieChartAsImage('png')"><a href="#">PNG</a></li>
-            <li ng-click="exportPieChartAsImage('jpeg')"><a href="#">JPEG</a></li>
-            <li ng-click="exportPieChartAsImage('gif')"><a href="#">GIF</a></li>
-            <li ng-click="exportPieChartAsImage('bmp')"><a href="#">BMP</a></li>
           </ul>
         </div>
 
@@ -116,6 +114,10 @@
     </div>
   </div>
 </div><!-- /.container-fluid -->
+
+<div ng-show="!isViewer" class="container margin">
+  <p>You do not have permission to view info on this page.</p>
+</div>
 <div id="loading">
   <img src="images/loading.gif" class="ajax-loader"/>
 </div>
