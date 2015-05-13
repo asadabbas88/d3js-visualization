@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Angular-visuliztion-module')
+angular.module('Angular-visualization-module')
   .controller('NavbarCtrl', function ($scope, $location, $auth) {
     $scope.menu = [{
       'title': 'Home',

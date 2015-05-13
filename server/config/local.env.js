@@ -8,7 +8,7 @@
 
 module.exports = {
   DOMAIN: 'http://localhost:9000',
-  SESSION_SECRET: "Angular-visuliztion-module-secret",
+  SESSION_SECRET: "Angular-visualization-module-secret",
   // Control debug level for modules using visionmedia/debug
   DEBUG: '',
   STORMPATH_API_KEY_ID: '62DXM2KQZT51XPSUD1W9I7WZH',
