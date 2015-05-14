@@ -16,5 +16,6 @@ angular.module('Angular-visualization-module')
     $scope.logout = function() {
       sessionStorage.setItem('collectionId', '');
       $auth.endSession();
+      $location.path('/login');
     }
   });
