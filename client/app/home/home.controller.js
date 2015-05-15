@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  angular.module('Angular-visualization-module').controller('HomeCtrl', function ($scope, $http, ngTableParams, $timeout, searchService, _, CONFIG, $user) {
+  angular.module('Angular-visualization-module').controller('HomeCtrl', function ($scope, $http, ngTableParams, $timeout, searchService, _, CONFIG, $user, $filter) {
 
     $scope.showExportButtons = false;
     $scope.isViewer = false;
@@ -76,20 +76,6 @@
             setWordCloudAndPieChart(response);
             $scope.responseTableParams.page(1);
             $scope.responseTableParams.reload();
-
-            console.log(response);
-
-            //$scope.dtOptions = DTOptionsBuilder.fromSource('api/datatables.json');
-            //$scope.dtColumns = [
-            //  DTColumnBuilder.newColumn('Name').withTitle('Name'),
-            //  DTColumnBuilder.newColumn('Position').withTitle('Position'),
-            //  DTColumnBuilder.newColumn('Office').withTitle('Office'),
-            //  DTColumnBuilder.newColumn('Age').withTitle('Age'),
-            //  DTColumnBuilder.newColumn('Start_date').withTitle('Start_date'),
-            //  DTColumnBuilder.newColumn('Salary').withTitle('Salary')
-            //];
-
-
             $scope.showExportButtons = true;
           })
           .error(function (err) {
@@ -97,17 +83,32 @@
           });
     }
 
+
     $scope.responseTableParams = new ngTableParams({
       page: 1,            // show first page
       count: 10           // count per page
     }, {
       $scope: $scope,
       total: 0, // length of data
+      filterDelay: 0,
       getData: function ($defer, params) {
         if (angular.isDefined($scope.result) && $scope.result.length > 0) {
-          params.total($scope.result.length);
-          var pageData = $scope.result.slice((params.page() - 1) * params.count(), params.page() * params.count());
-          $defer.resolve(_.pluck(pageData, $scope.questionSelected));
+
+          var comments = [];
+          angular.forEach(_.pluck($scope.result, $scope.questionSelected), function(val) {
+            comments.push({
+              'comment': val
+            })
+          });
+
+          var filteredData = params.filter() ?
+              $filter('filter')(comments, params.filter()) :
+              comments;
+
+          params.total(filteredData.length);
+
+          var pageData = filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+          $defer.resolve(pageData);
         }
       }
     });
