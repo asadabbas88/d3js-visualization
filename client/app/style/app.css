@@ -29,10 +29,22 @@ body {
 .border {
     border: 2px solid #696969 !important;
 }
+/*ajust frame on string*/
+@media only screen and (min-width:250px) and (max-width:1260px)
+{
+    .chart_container .col-md-6
+    {
+        width:100% !important;
+        display:block;
+    }
+}
+
+
 .chart_container .col-md-6 {
     width: 49.5%;
     /*background-color: #f5f5f5;*/
     min-height:410px ;
+
 }
 .chart_container {
     margin-bottom: 20px;

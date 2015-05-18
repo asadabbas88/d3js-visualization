@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="panel-body" style="min-height: 429px;">
-          <div id="chart" style="clear:both;" class="row span4 chart chart-doughnut">
+            <div id="chart" style="clear:both;" class="row span4 chart chart-doughnut">
             <nvd3 options="options" data="data"></nvd3>
           </div>
         </div>
@@ -100,6 +100,7 @@
             <tr ng-repeat="res in $data">
               <td filter="{ 'comment': 'text' }">
                 {{res.comment}}
+                  search
               </td>
             </tr>
           </table>

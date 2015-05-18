@@ -1520,7 +1520,7 @@ body {
 #header {
     background-color: #fff;
     display: block;
-    height: 62px;
+    height: 72px;
     margin: 0;
     padding: 0;
     position: relative;
@@ -2121,11 +2121,12 @@ body {
 }
 
 #logo {
+
     float: left;
     width: 230px;
     background-color: #34495e;
     padding: 18px 10px 18px 18px;
-    height: 56px;
+    height: 66px;
     text-align: center
 }
 
@@ -2149,6 +2150,7 @@ body {
 
 
 #logo a img {
+    padding-top: 8px;
     max-width: 100%;
     margin-top: -24px
 }
