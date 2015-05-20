@@ -83,7 +83,6 @@
           });
     }
 
-
     $scope.responseTableParams = new ngTableParams({
       page: 1,            // show first page
       count: 10           // count per page
@@ -100,15 +99,17 @@
               'comment': val
             })
           });
-
+          //  console.log(comments);
           var filteredData = params.filter() ?
               $filter('filter')(comments, params.filter()) :
               comments;
 
           params.total(filteredData.length);
-
+          //  console.log(params.total, filteredData);
           var pageData = filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-          $defer.resolve(pageData);
+          //console.log(pageData);
+            $defer.resolve(filteredData);
+
         }
       }
     });
