@@ -108,7 +108,7 @@
           //  console.log(params.total, filteredData);
           var pageData = filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count());
           //console.log(pageData);
-            $defer.resolve(filteredData);
+            $defer.resolve(pageData);
 
         }
       }
