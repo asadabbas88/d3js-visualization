@@ -2,7 +2,8 @@
 
 angular.module('Angular-visualization-module')
   .controller('NavbarCtrl', function ($scope, $location, $auth) {
-    $scope.menu = [{
+        $scope.logourl =''
+        $scope.menu = [{
       'title': 'Home',
       'link': '/'
     }];
@@ -18,4 +19,5 @@ angular.module('Angular-visualization-module')
       $auth.endSession();
       $location.path('/login');
     }
+        $scope.logourl = sessionStorage.getItem('logoUrl');
   });
