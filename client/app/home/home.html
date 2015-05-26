@@ -83,7 +83,7 @@
         <div class="panel-body" style="min-height: 367px;">
           <div id="wordCloud" class="chart_right_text">
             <p>
-              <jqcloud words="word" height="367" colors="{{colors}}" delay="10" steps="7" autoResize="true"
+              <jqcloud words="word" height="367" colors="{{colors}}" delay="10" steps="7" auto-resize="true"
                        font-size="{from:0.10, to:0.04}"></jqcloud>
             </p>
           </div>
@@ -96,14 +96,6 @@
     <div class="col-lg-12">
       <div class="hpanel">
         <div class="panel-body" style="min-height: 400px;">
-        <!--    <table ng-table="responseTableParams" show-filter="true" class="table">
-                <tr ng-repeat="res in $data">
-                    <td filter="{ 'comment': 'text' }">
-                        {{res.comment}}
-                    </td>
-                </tr>
-            </table>-->
-
           <label for="searchbar" class="bar">Search:
                 <input type="text" ng-model="searchUser" class="search_bar">
             </label>

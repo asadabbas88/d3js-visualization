@@ -7,8 +7,9 @@ app.factory('searchService', function($http, CONFIG, _) {
   var searchService = {
 
     getAllDivisions: function(){
-      var collecionId = sessionStorage.getItem('collectionId');
-      return $http.get(CONFIG.SEARCH_BASE_URL + '?facet=true&col=' + collecionId + '&query=*&facet.field=division&pagesize=0&f.division.size=1000');
+      var collectionId = sessionStorage.getItem('collectionId');
+      console.log(collectionId);
+      return $http.get(CONFIG.SEARCH_BASE_URL + '?facet=true&col=' + collectionId + '&query=*&facet.field=division&pagesize=0&f.division.size=1000');
     },
 
     getResponses: function(question,division,pageNumber,pageSize,filterQuestion,filterSentiment){
