@@ -1,0 +1,120 @@
+<div id="header" ng-include="'components/navbar/navbar.html'"></div>
+
+<div ng-show="isViewer" class="content">
+
+  <div class="hpanel hgreen">
+    <div class="panel-body">
+      <div class="col-md-6">
+        <p>Question</p>
+      </div>
+      <div class="col-md-6">
+        <select class="pull-right form-control" ng-model="questionSelected"
+                ng-options="item as item for item in listOfQuestions" ng-change="selectQuestion()">
+          <option value="">Select Question</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="hpanel hgreen">
+    <div class="panel-body">
+      <div class="col-md-6">
+        <p>Division</p>
+      </div>
+      <div class="col-md-6">
+        <select class="pull-right form-control" name="first" ng-model="divisionSelected"
+                ng-options="item as item for item in divisions" ng-change="selectDivision()">
+          <option value="">Select Division</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart_container row">
+    <div class="animated-panel pull-left col-md-6">
+      <div class="hpanel">
+        <div class="panel-heading hbuilt">
+          <div style="min-height:25px;">
+                <span style="cursor:pointer;" ng-if="filterSentiment" class="label label-success"
+                      ng-click="clearSentimentFilter()">{{filterSentiment}} <i
+                    class="glyphicon glyphicon-remove-circle"></i></span>
+
+            <div class="btn-group pull-right" ng-if="showExportButtons">
+              <button type="button" class="btn btn-primary dropdown-toggle btn-xs"
+                      data-toggle="dropdown">
+                Export As <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li ng-click="exportPieChartAsImage('svg')"><a href="#">SVG</a></li>
+                <li ng-click="exportPieChartAsImage('png')"><a href="#">PNG</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body" style="min-height: 429px;">
+            <div id="chart" style="clear:both;" class="row span4 chart chart-doughnut">
+            <nvd3 options="options" data="data"></nvd3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="animated-panel col-md-6 pull-right">
+      <div class="hpanel">
+        <div class="panel-heading hbuilt">
+          <div style="min-height:25px;">
+                <span style="cursor:pointer;" ng-if="filterQuestion" class="label label-success"
+                      ng-click="clearQuestionFilter()">{{filterQuestion}} <i
+                    class="glyphicon glyphicon-remove-circle"></i></span>
+
+            <div class="btn-group pull-right" ng-if="showExportButtons">
+              <button type="button" class="btn btn-primary dropdown-toggle btn-xs"
+                      data-toggle="dropdown">
+                Export As <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li ng-click="exportWordCloudAsImage('png')"><a href="#">PNG</a></li>
+                <li ng-click="exportWordCloudAsImage('jpeg')"><a href="#">JPEG</a></li>
+                <li ng-click="exportWordCloudAsImage('gif')"><a href="#">GIF</a></li>
+                <li ng-click="exportWordCloudAsImage('bmp')"><a href="#">BMP</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body" style="min-height: 367px;">
+          <div id="wordCloud" class="chart_right_text">
+            <p>
+              <jqcloud words="word" height="367" colors="{{colors}}" delay="10" steps="7" auto-resize="true"
+                       font-size="{from:0.10, to:0.04}"></jqcloud>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="hpanel">
+        <div class="panel-body" style="min-height: 400px;">
+          <label for="searchbar" class="bar">Search:
+                <input type="text" ng-model="searchUser" class="search_bar">
+            </label>
+            <table ng-table="responseTableParams" class="table" >
+                <tr ng-repeat="res in $data | filter:searchUser">
+                    <td>
+                        {{res.comment}}
+                    </td>
+                </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.container-fluid -->
+
+<div ng-show="!isViewer" class="content">
+  <p>You do not have permission to view info on this page.</p>
+</div>
+<div id="loading">
+  <img src="images/loading.gif" class="ajax-loader"/>
+</div>
