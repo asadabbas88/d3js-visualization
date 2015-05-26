@@ -7,24 +7,10 @@
   angular.module('Angular-visualization-module').controller('HomeCtrl', function ($scope, $http, ngTableParams, $timeout, searchService, _, CONFIG, $user, $filter) {
 
     $scope.showExportButtons = false;
-    $scope.isViewer = false;
+    $scope.isViewer = sessionStorage.getItem('isViewer');
+      init();
 
-    for(var i = 0; i < $user.currentUser.groups.length; i++) {
-      if($user.currentUser.groups[i].name == 'Viewer') {
-        $http.get('/api/user/directory?href=' + $user.currentUser.directory.href).success(function (directory) {
-          sessionStorage.setItem(
-              'collectionId',
-              directory.customData.collectionId
-          );
-
-          init();
-        });
-        $scope.isViewer = true;
-        break;
-      }
-    }
-
-    function init() {
+      function init() {
       initializeQuestions();
       initializeDivisions();
     }
