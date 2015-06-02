@@ -214,23 +214,53 @@
       });
     };
 
+    function appendElement(form, name, value){
+        var element = document.createElement('input'); //input element, text
+        element.setAttribute('type', 'hidden');
+        element.setAttribute('name', name);
+        element.value = value;
+        form.appendChild(element);
+	}
+
+	function appendSubmitElement(form){
+        var element = document.createElement('input'); //input element, text
+        element.setAttribute('type', 'submit');
+        element.setAttribute('value', 'Submit');
+        form.appendChild(element);
+	}
+
     $scope.exportPieChartAsImage = function (type) {
-
-      $('#chart').find('svg').height('100%').width('100%');
-
-      var myDiv = $('#chart');
-      var blob = new Blob([(new XMLSerializer).serializeToString(myDiv[0])],
-          {type: "image/png;charset=" + document.characterSet});
-
-      saveAs(blob, "chart." + type);
+        var form = document.createElement('form');
+        form.setAttribute('method','post');
+        form.setAttribute('action','/api/export');
+        appendElement(form,'html', '<style>body {background-color: white; }</style>' + $('#chart').html());
+        var style = window.getComputedStyle(document.getElementById('chart'));
+        appendElement(form, 'width', style.getPropertyValue('width').replace('px',''));
+        appendElement(form, 'format', type);
+        appendElement(form, 'filename', 'chart');
+        appendSubmitElement(form);
+        document.getElementsByTagName('body')[0].appendChild(form);
+        form.submit();
+        form.remove();
     };
 
     $scope.exportWordCloudAsImage = function (type) {
-      html2canvas($('#wordCloud')).then(function (canvas) {
-        Canvas2Image.saveAsImage(canvas, 500, 400, type);
-      }, function (error) {
-        console.log(error);
-      });
+    	var form = document.createElement("form");
+		form.setAttribute('method',"post");
+		form.setAttribute('action',"/api/export");
+
+		/** Adds jqcloud css **/
+		var css = '<style>body {background-color: white; } div.jqcloud {   overflow: hidden;   position: relative; } div.jqcloud span {   padding: 0; } /* fonts */ div.jqcloud {   font-family: "Helvetica", "Arial", sans-serif;   font-size: 10px;   line-height: normal; } div.jqcloud a {   font-size: inherit;   text-decoration: none; } div.jqcloud span.w10 { font-size: 550%; } div.jqcloud span.w9 { font-size: 500%; } div.jqcloud span.w8 { font-size: 450%; } div.jqcloud span.w7 { font-size: 400%; } div.jqcloud span.w6 { font-size: 350%; } div.jqcloud span.w5 { font-size: 300%; } div.jqcloud span.w4 { font-size: 250%; } div.jqcloud span.w3 { font-size: 200%; } div.jqcloud span.w2 { font-size: 150%; } div.jqcloud span.w1 { font-size: 100%; } /* colors */ div.jqcloud { color: #09f; } div.jqcloud a { color: inherit; } div.jqcloud a:hover { color: #0df; } div.jqcloud a:hover { color: #0cf; } div.jqcloud span.w10 { color: #0cf; } div.jqcloud span.w9 { color: #0cf; } div.jqcloud span.w8 { color: #0cf; } div.jqcloud span.w7 { color: #39d; } div.jqcloud span.w6 { color: #90c5f0; } div.jqcloud span.w5 { color: #90a0dd; } div.jqcloud span.w4 { color: #90c5f0; } div.jqcloud span.w3 { color: #a0ddff; } div.jqcloud span.w2 { color: #99ccee; } div.jqcloud span.w1 { color: #aab5f0; }</style>';
+		appendElement(form,'html', css + $('#wordCloud').html());
+		var style = window.getComputedStyle(document.getElementById('chart'));
+		appendElement(form, 'width', style.getPropertyValue('width').replace('px',''));
+		appendElement(form, 'format', type);
+		appendElement(form, 'filename', 'wordcloud');
+		appendSubmitElement(form);
+
+		document.getElementsByTagName('body')[0].appendChild(form);
+		form.submit();
+		form.remove();
     };
 
   });
