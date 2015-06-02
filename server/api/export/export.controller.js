@@ -2,8 +2,6 @@
 
 var phantom = require('phantom');
 var fs = require('fs');
-var mime = require('mime');
-
 
 exports.exportAsImage = function (req, res) {
     
