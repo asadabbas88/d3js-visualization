@@ -10,6 +10,26 @@ npm install -g bower
 
 ```
 
+### Install g++
+
+g++ is required for some node modules compilation
+
+```sh
+sudo yum install gcc-c++
+```
+
+### Install phantomjs
+
+phantomjs is required for server side image export
+
+Follow link http://www.bonusbits.com/wiki/HowTo:Install_PhantomJS_on_CentOS
+
+Also install font package
+
+```sh
+yum install urw-fonts
+```
+
 ###Setup/Run project
 
 ##### Clone project
