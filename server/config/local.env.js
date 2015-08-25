@@ -11,7 +11,7 @@ module.exports = {
   SESSION_SECRET: "Angular-visualization-module-secret",
   // Control debug level for modules using visionmedia/debug
   DEBUG: '',
-  STORMPATH_API_KEY_ID: '62DXM2KQZT51XPSUD1W9I7WZH',
-  STORMPATH_API_KEY_SECRET: 'CuCqd1myqVbUBkyzg70Qpv4qwTL/fsqY+MUqmfh0GN0',
-  STORMPATH_APP_HREF: 'https://api.stormpath.com/v1/applications/1o0G22UUCLY9RnKpxwC9qE'
+  STORMPATH_API_KEY_ID: '2S5P7N5WVZX3VMPZWNDOJDY1W',
+  STORMPATH_API_KEY_SECRET: 'Jp3Mkpx0APcRCPR+nx0MhHjO0bdL4zsrdv9kBNZgwQI',
+  STORMPATH_APP_HREF: 'https://api.stormpath.com/v1/applications/6u3t7yPzRiwgQ4lpvvV6hd'
 };

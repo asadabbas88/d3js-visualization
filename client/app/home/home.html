@@ -19,12 +19,12 @@
   <div class="hpanel hgreen">
     <div class="panel-body">
       <div class="col-md-6">
-        <p>Division</p>
+        <p>People Manager</p>
       </div>
       <div class="col-md-6">
         <select class="pull-right form-control" name="first" ng-model="divisionSelected"
                 ng-options="item as item for item in divisions" ng-change="selectDivision()">
-          <option value="">Select Division</option>
+          <option value="">Select People</option>
         </select>
       </div>
     </div>
@@ -84,8 +84,8 @@
         </div>
         <div class="panel-body" style="min-height: 367px;">
           <div id="wordCloud" class="chart_right_text">
-            <p>
-              <jqcloud words="word" height="367" colors="{{colors}}" delay="10" steps="7" auto-resize="true"
+            <p ng-if="word && colors">
+              <jqcloud words="word" colors="{{colors}}" height="367" delay="10" steps="7" auto-resize="true"
                        font-size="{from:0.10, to:0.04}"></jqcloud>
             </p>
           </div>

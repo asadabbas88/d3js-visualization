@@ -9,13 +9,13 @@ app.factory('searchService', function($http, CONFIG, _) {
     getAllDivisions: function(){
       var collectionId = sessionStorage.getItem('collectionId');
       console.log(collectionId);
-      return $http.get(CONFIG.SEARCH_BASE_URL + '?facet=true&col=' + collectionId + '&query=*&facet.field=division&pagesize=0&f.division.size=1000');
+      return $http.get(CONFIG.SEARCH_BASE_URL + '?xsl=json&facet=true&col=' + collectionId + '&query=*&facet.field=division&pagesize=0&f.division.size=1000');
     },
 
     getResponses: function(question,division,pageNumber,pageSize,filterQuestion,filterSentiment){
       var collecionId = sessionStorage.getItem('collectionId');
 
-      var url = CONFIG.SEARCH_BASE_URL + '?facet=true&col=' + collecionId + '&query=*&pagesize='+pageSize+'&page='+pageNumber+'&downloadAsZipAlone=true';
+      var url = CONFIG.SEARCH_BASE_URL + '?xsl=json&facet=true&col=' + collecionId + '&query=*&pagesize='+pageSize+'&page='+pageNumber+'&downloadAsZipAlone=true';
       if ( !_.isEmpty(question) ){
         url += '&facet.field=' + question + '&f.' + question + '.size=' + CONFIG.WORDCLOUD_FACET_SIZE;
         url += '&facet.field=' + question + '.sentiment';
