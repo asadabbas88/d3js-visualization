@@ -4,18 +4,16 @@ var phantom = require('phantom');
 var fs = require('fs');
 
 exports.exportAsImage = function (req, res) {
-    
+
 
     phantom.create(function (ph) {
         ph.createPage(function (page) {
 			page.set('viewportSize',{
-			  // 20px was added as it was cutting some part on right in word cloud 
+			  // 20px was added as it was cutting some part on right in word cloud
 			  width: parseInt(req.body.width) + 20,
 			  height: 387
 			});
             page.set('onLoadFinished', function (status) {
-                console.log(req.body);
-				console.log(page.viewportSize);
                 var outputFile = '/tmp/temp'+new Date().getTime()+'.' + req.body.format;
                 page.render(outputFile, function(finished){
                		res.download(outputFile, req.body.filename + '.' + req.body.format, function(err){
@@ -26,7 +24,7 @@ exports.exportAsImage = function (req, res) {
 				  		}
 				  	});
                     ph.exit();
-                });        
+                });
             });
             page.set('content', req.body.html);
         });
